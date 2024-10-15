@@ -233,7 +233,8 @@ ingress:
   className: nginx
   annotations: {}
   tls: []
-  hosts: nifi.contextsuite.com
+  hosts: 
+    - nifi.contextsuite.com
   path: /nifi
   # If you want to change the default path, see this issue https://github.com/cetic/helm-nifi/issues/22
 
