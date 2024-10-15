@@ -92,7 +92,8 @@ properties:
   externalSecure: false
   isNode: false
   httpsPort: 8443
-  webProxyHost: # <clusterIP>:<NodePort> (If Nifi service is NodePort or LoadBalancer)
+  webProxyHost: nifi.contextsuite.com # <clusterIP>:<NodePort> (If Nifi service is NodePort or LoadBalancer)
+  webHttpsHost: 0.0.0.0
   clusterPort: 6007
   zkClientEnsembleTraker: false # https://issues.apache.org/jira/browse/NIFI-10481
   clusterNodeConnectionTimeout: '5 sec'
@@ -228,12 +229,12 @@ containerPorts: []
 ## Configure Ingress based on the documentation here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
-  enabled: false
-  # className: nginx
+  enabled: true
+  className: nginx
   annotations: {}
   tls: []
-  hosts: []
-  path: /
+  hosts: nifi.contextsuite.com
+  path: /nifi
   # If you want to change the default path, see this issue https://github.com/cetic/helm-nifi/issues/22
 
 # Amount of memory to give the NiFi java heap
