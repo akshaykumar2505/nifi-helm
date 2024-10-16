@@ -90,7 +90,7 @@ properties:
   algorithm: NIFI_PBKDF2_AES_GCM_256
   # use externalSecure for when inbound SSL is provided by nginx-ingress or other external mechanism
   externalSecure: true
-  isNode: true
+  isNode: false
   httpsPort: 8443
   webProxyHost: nifi.contextsuite.com # <clusterIP>:<NodePort> (If Nifi service is NodePort or LoadBalancer)
   clusterPort: 6007
@@ -202,7 +202,7 @@ service:
     # loadBalancerSourceRanges:
     # - 10.10.10.0/24
     ## OIDC authentication requires "sticky" session on the LoadBalancer for JWT to work properly...but AWS doesn't like it on creation
-  sessionAffinity: ClientIP
+    # sessionAffinity: ClientIP
     # sessionAffinityConfig:
     #   clientIP:
   #     timeoutSeconds: 10800
@@ -394,12 +394,12 @@ ca:
 # as well as the certificates for each cluster node.
 certManager:
   enabled: false
-  clusterDomain: cluster.local
+  clusterDomain: contextsuite.com
   keystorePasswd: changeme
   truststorePasswd: changeme
   replaceDefaultTrustStore: false
   additionalDnsNames:
-    - localhost
+    - nifi.contextsuite.com
   refreshSeconds: 300
   resources:
     requests:
@@ -425,7 +425,7 @@ certManager:
 zookeeper:
   ## If true, install the Zookeeper chart
   ## ref: https://github.com/bitnami/charts/blob/master/bitnami/zookeeper/values.yaml
-  enabled: false
+  enabled: true
   ## If the Zookeeper Chart is disabled a URL and port are required to connect
   url: ""
   port: 2181
